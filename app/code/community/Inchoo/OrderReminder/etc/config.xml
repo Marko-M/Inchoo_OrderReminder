@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+    <modules>
+        <Inchoo_OrderReminder>
+            <version>0.0.1</version>
+        </Inchoo_OrderReminder>
+    </modules>
+    <default>
+        <!-- Default system config values -->
+        <sales_email>
+            <inchoo_orderreminder>
+                <!-- No -->
+                <enabled>0</enabled>
+
+                <!-- 3 -->
+                <number>3</number>
+
+                <!-- 10 -->
+                <interval>10</interval>
+
+                <!--Send Email -->
+                <last_action>0</last_action>
+
+                <!--Move to Group -->
+                <move_group></move_group>
+
+                <!-- General Contact -->
+                <identity>general</identity>
+
+                <!-- Default Template from Locale -->
+                <template>sales_email_inchoo_orderreminder_template</template>
+
+                <!-- Default Template from Locale -->
+                <last_template>sales_email_inchoo_orderreminder_last_template</last_template>
+
+                <!-- Copy to -->
+                <copy_to></copy_to>
+
+                <!-- Bcc -->
+                <copy_method>bcc</copy_method>
+            </inchoo_orderreminder>
+        </sales_email>
+    </default>
+    <global>
+        <models>
+            <inchoo_orderreminder>
+                <class>Inchoo_OrderReminder_Model</class>
+            </inchoo_orderreminder>
+        </models>
+        <helpers>
+            <inchoo_orderreminder>
+                <class>Inchoo_OrderReminder_Helper</class>
+            </inchoo_orderreminder>
+        </helpers>
+        <template>
+            <email>
+                <!-- Regular reminder email template -->
+                <sales_email_inchoo_orderreminder_template translate="label" module="inchoo_orderreminder">
+                    <label>Order Reminder Template</label>
+                    <file>sales/inchoo/order_reminder.html</file>
+                    <type>html</type>
+                </sales_email_inchoo_orderreminder_template>
+                <!-- Last reminder email template -->
+                <sales_email_inchoo_orderreminder_last_template translate="label" module="inchoo_orderreminder">
+                    <label>Last Order Reminder Template</label>
+                    <file>sales/inchoo/last_order_reminder.html</file>
+                    <type>html</type>
+                </sales_email_inchoo_orderreminder_last_template>
+            </email>
+        </template>
+    </global>
+    <crontab>
+        <jobs>
+            <inchoo_orderreminder>
+                <!-- Daily at 1 am -->
+                <schedule><cron_expr>0 1 * * *</cron_expr></schedule>
+                <run><model>inchoo_orderreminder/observer::processOrderReminders</model></run>
+            </inchoo_orderreminder>
+        </jobs>
+    </crontab>
+</config>
